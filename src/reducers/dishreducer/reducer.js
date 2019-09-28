@@ -27,7 +27,7 @@ const INITIAL_STATE = {
   currentModel: {
     name: "",
     preparation_time: "",
-    type: "pizza",
+    type: "",
     no_of_slices: "",
     diameter: ""
   },
