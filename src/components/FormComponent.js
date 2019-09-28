@@ -41,7 +41,7 @@ const FormComponent = () => {
               type="time"
               onChange={handleChange}
               placeholder="01:30:22"
-              step="3"
+              step="1"
               required
             />
             <h1>Dish type</h1>
@@ -70,6 +70,7 @@ const FormComponent = () => {
             <input
               name="diameter"
               type="number"
+              step="0.01"
               onChange={handleChange}
               placeholder="1"
               required
@@ -83,6 +84,8 @@ const FormComponent = () => {
               type="number"
               onChange={handleChange}
               placeholder="1"
+              min="1"
+              max="10"
               required
             />
             <p>_____________________</p>
