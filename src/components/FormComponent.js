@@ -77,7 +77,7 @@ const FormComponent = () => {
         render={({ values, errors, handleChange, handleSubmit }) => (
           <form onSubmit={handleSubmit}>
             <label>
-              <h1>Name</h1>
+              <h1>Dish Name</h1>
               {errors.name ? <p>{errors.name}</p> : <div></div>}
               <input
                 name="name"
