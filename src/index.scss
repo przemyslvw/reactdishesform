@@ -78,10 +78,14 @@ label {
     left: 0;
     width: 100%;
     margin: 0;
-    bottom: -15px;
+    bottom: -20px;
     color: $color5;
     background-color: #e8122434;
     font-size: 12px;
+    border: 1px solid transparent;
+    box-sizing: border-box;
+    border-radius: 0.25rem;
+    padding: 3px;
   }
 }
 

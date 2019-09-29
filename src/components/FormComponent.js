@@ -55,10 +55,11 @@ const FormComponent = () => {
               errors.spiciness_scale = "spiciness scale is required";
             } else if (
               values.spiciness_scale <= 0 ||
-              values.spiciness_scale > 10 ||
-              !Number.isInteger(values.spiciness_scale)
+              values.spiciness_scale > 10
             ) {
               errors.spiciness_scale = "the number must be between 1 and 10";
+            } else if (!Number.isInteger(values.spiciness_scale)) {
+              errors.spiciness_scale = "the number must be integer";
             }
           }
           if (values.type === "sandwich") {
@@ -77,7 +78,7 @@ const FormComponent = () => {
           <form onSubmit={handleSubmit}>
             <label>
               <h1>Name</h1>
-              <p>{errors.name}</p>
+              {errors.name ? <p>{errors.name}</p> : <div></div>}
               <input
                 name="name"
                 onChange={handleChange}
@@ -87,7 +88,11 @@ const FormComponent = () => {
             </label>
             <label>
               <h1>Preparation time</h1>
-              <p>{errors.preparation_time}</p>
+              {errors.preparation_time ? (
+                <p>{errors.preparation_time}</p>
+              ) : (
+                <div></div>
+              )}
               <input
                 name="preparation_time"
                 type="time"
@@ -99,7 +104,8 @@ const FormComponent = () => {
             </label>
             <label>
               <h1>Dish type</h1>
-              <p>{errors.type}</p>
+              {errors.type ? <p>{errors.type}</p> : <div></div>}
+
               <select
                 name="type"
                 value={values.type}
@@ -121,7 +127,11 @@ const FormComponent = () => {
               <div>
                 <label>
                   <h1>number of slices</h1>
-                  <p>{errors.no_of_slices}</p>
+                  {errors.no_of_slices ? (
+                    <p>{errors.no_of_slices}</p>
+                  ) : (
+                    <div></div>
+                  )}
                   <input
                     name="no_of_slices"
                     type="number"
@@ -132,7 +142,7 @@ const FormComponent = () => {
                 </label>
                 <label>
                   <h1>diameter</h1>
-                  <p>{errors.diameter}</p>
+                  {errors.diameter ? <p>{errors.diameter}</p> : <div></div>}
                   <input
                     name="diameter"
                     type="number"
@@ -148,7 +158,11 @@ const FormComponent = () => {
             {dishtype === "soup" ? (
               <label>
                 <h1>spiciness scale</h1>
-                <p>{errors.spiciness_scale}</p>
+                {errors.spiciness_scale ? (
+                  <p>{errors.spiciness_scale}</p>
+                ) : (
+                  <div></div>
+                )}
                 <input
                   name="spiciness_scale"
                   type="number"
@@ -163,7 +177,11 @@ const FormComponent = () => {
             {dishtype === "sandwich" ? (
               <label>
                 <h1>slices of bread</h1>
-                <p>{errors.slices_of_bread}</p>
+                {errors.slices_of_bread ? (
+                  <p>{errors.slices_of_bread}</p>
+                ) : (
+                  <div></div>
+                )}
                 <input
                   name="slices_of_bread"
                   type="number"
