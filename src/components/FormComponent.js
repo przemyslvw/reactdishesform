@@ -11,8 +11,11 @@ const FormComponent = () => {
     <div className="App-form">
       <Formik
         initialValues={model}
-        onSubmit={values => {
+        onSubmit={(values, { resetForm }) => {
           addDish(values);
+          alert("Dish " + values.name + "has been added");
+          dispatch(switchType(""));
+          resetForm();
         }}
         validate={values => {
           let errors = {};
@@ -24,7 +27,6 @@ const FormComponent = () => {
 
           if (
             !values.preparation_time ||
-            values.preparation_time === "00:00:00" ||
             values.preparation_time.length === 5
           ) {
             errors.preparation_time = "preparation time is required";
@@ -71,17 +73,8 @@ const FormComponent = () => {
           }
           return errors;
         }}
-        render={({
-          values,
-          errors,
-          touched,
-          handleBlur,
-          handleChange,
-          handleSubmit,
-          isSubmitting
-        }) => (
+        render={({ values, errors, handleChange, handleSubmit }) => (
           <form onSubmit={handleSubmit}>
-            <h1>Add dish</h1>
             <label>
               <h1>Name</h1>
               <p>{errors.name}</p>
@@ -99,6 +92,7 @@ const FormComponent = () => {
                 name="preparation_time"
                 type="time"
                 onChange={handleChange}
+                value={values.preparation_time}
                 placeholder="01:30:22"
                 step="1"
               />
@@ -114,7 +108,7 @@ const FormComponent = () => {
                   handleChange(e);
                 }}
               >
-                <option selected disabled value="">
+                <option disabled value="">
                   choose one ...
                 </option>
                 <option value="pizza">pizza</option>

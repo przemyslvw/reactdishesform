@@ -44,6 +44,12 @@ nav {
   }
 }
 
+form {
+  padding: 30px;
+  background-color: $color2;
+  margin-top: 30px;
+}
+
 input,
 select {
   display: block;
@@ -66,7 +72,7 @@ label {
   position: relative;
   height: 100%;
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
   p {
     position: absolute;
     left: 0;
@@ -106,8 +112,8 @@ label {
 
 .btn-primary {
   color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: $color7;
+  border-color: $color7;
 }
 
 code {
@@ -130,6 +136,7 @@ code {
   color: white;
   h1 {
     font-size: 1em;
+    color: black;
   }
   h1,
   label {
