@@ -27,6 +27,7 @@ const FormComponent = () => {
 
           if (
             !values.preparation_time ||
+            values.preparation_time === "00:00:00" ||
             values.preparation_time.length === 5
           ) {
             errors.preparation_time = "preparation time is required";
