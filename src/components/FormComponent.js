@@ -14,6 +14,36 @@ const FormComponent = () => {
         onSubmit={values => {
           addDish(values);
         }}
+        validate={values => {
+          let errors = {};
+          if (!values.name) {
+            errors.name = "name is required";
+          } else if (values.name.length < 3) {
+            errors.name = "name must have 3 characters";
+          } else if (!values.preparation_time) {
+            errors.preparation_time = "preparation time is required";
+          } else if (!values.type) {
+            errors.type = "types is required";
+          }
+          if (values.type === "pizza") {
+            if (!values.no_of_slices) {
+              errors.no_of_slices = "number of slices is required";
+            } else if (!values.diameter) {
+              errors.diameter = "diameter is required";
+            }
+          }
+          if (values.type === "soup") {
+            if (!values.spiciness_scale) {
+              errors.spiciness_scale = "spiciness scale is required";
+            }
+          }
+          if (values.type === "sandwich") {
+            if (!values.slices_of_bread) {
+              errors.slices_of_bread = "slices of bread is required";
+            }
+          }
+          return errors;
+        }}
         render={({
           values,
           errors,
@@ -25,14 +55,16 @@ const FormComponent = () => {
         }) => (
           <form onSubmit={handleSubmit}>
             <h1>Add dish</h1>
-            <h1>Name</h1>
-            <input
-              name="name"
-              onChange={handleChange}
-              placeholder="Pizza HexOcean ... "
-              value={values.name}
-              required
-            />
+            <label>
+              <h1>Name</h1>
+              <p>{errors.name}</p>
+              <input
+                name="name"
+                onChange={handleChange}
+                placeholder="Pizza HexOcean ... "
+                value={values.name}
+              />
+            </label>
             <h1>Preparation time</h1>
             <input
               name="preparation_time"
@@ -40,51 +72,58 @@ const FormComponent = () => {
               onChange={handleChange}
               placeholder="01:30:22"
               step="1"
-              required
             />
-            <h1>Dish type</h1>
-            <select
-              name="type"
-              value={values.type}
-              onChange={e => {
-                dispatch(switchType(e.target.value));
-                handleChange(e);
-              }}
-              required
-            >
-              <option selected disabled value="">
-                choose one ...
-              </option>
-              <option value="pizza">pizza</option>
-              <option value="soup">soup</option>
-              <option value="sandwich">sandwich</option>
-            </select>
+            <label>
+              <h1>Dish type</h1>
+              <p>{errors.type}</p>
+              <select
+                name="type"
+                value={values.type}
+                onChange={e => {
+                  dispatch(switchType(e.target.value));
+                  handleChange(e);
+                }}
+              >
+                <option selected disabled value="">
+                  choose one ...
+                </option>
+                <option value="pizza">pizza</option>
+                <option value="soup">soup</option>
+                <option value="sandwich">sandwich</option>
+              </select>
+            </label>
+
             {dishtype === "pizza" ? (
               <div>
-                <h1>number of slices</h1>
-                <input
-                  name="no_of_slices"
-                  type="number"
-                  onChange={handleChange}
-                  placeholder="1"
-                  required
-                />
-                <h1>diameter</h1>
-                <input
-                  name="diameter"
-                  type="number"
-                  step="0.01"
-                  onChange={handleChange}
-                  placeholder="1"
-                  required
-                />
+                <label>
+                  <h1>number of slices</h1>
+                  <p>{errors.no_of_slices}</p>
+                  <input
+                    name="no_of_slices"
+                    type="number"
+                    onChange={handleChange}
+                    placeholder="1"
+                  />
+                </label>
+                <label>
+                  <h1>diameter</h1>
+                  <p>{errors.diameter}</p>
+                  <input
+                    name="diameter"
+                    type="number"
+                    step="0.01"
+                    onChange={handleChange}
+                    placeholder="1"
+                  />
+                </label>
               </div>
             ) : (
               <div></div>
             )}
             {dishtype === "soup" ? (
-              <div>
+              <label>
                 <h1>spiciness scale</h1>
+                <p>{errors.spiciness_scale}</p>
                 <input
                   name="spiciness_scale"
                   type="number"
@@ -92,23 +131,22 @@ const FormComponent = () => {
                   placeholder="1"
                   min="1"
                   max="10"
-                  required
                 />
-              </div>
+              </label>
             ) : (
               <div></div>
             )}
             {dishtype === "sandwich" ? (
-              <div>
+              <label>
                 <h1>slices of bread</h1>
+                <p>{errors.slices_of_bread}</p>
                 <input
                   name="slices_of_bread"
                   type="number"
                   onChange={handleChange}
                   placeholder="1"
-                  required
                 />
-              </div>
+              </label>
             ) : (
               <div></div>
             )}
