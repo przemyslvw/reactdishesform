@@ -4,32 +4,32 @@ const INITIAL_STATE = {
   model: [
     {
       name: "",
-      preparation_time: "",
+      preparation_time: 0,
       type: "pizza",
-      no_of_slices: "",
-      diameter: ""
+      no_of_slices: 0,
+      diameter: 0
     },
 
     {
       name: "",
-      preparation_time: "",
+      preparation_time: 0,
       type: "soup",
-      spiciness_scale: ""
+      spiciness_scale: 0
     },
 
     {
       name: "",
-      preparation_time: "",
+      preparation_time: 0,
       type: "sandwich",
-      slices_of_bread: ""
+      slices_of_bread: 0
     }
   ],
   currentModel: {
     name: "",
-    preparation_time: "",
+    preparation_time: 0,
     type: ""
   },
-  type: ""
+  currentType: ""
 };
 
 const dishReducer = (state = INITIAL_STATE, action = {}) => {
@@ -38,7 +38,7 @@ const dishReducer = (state = INITIAL_STATE, action = {}) => {
       return {
         ...state,
         currentModel: state.model.find(model => model.type === action.item),
-        type: action.item
+        currentType: action.item
       };
     case types.ADD_DISH:
       return {

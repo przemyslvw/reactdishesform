@@ -128,6 +128,9 @@ code {
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  h1 {
+    font-size: 1em;
+  }
   h1,
   label {
     font-family: "Lato", sans-serif;

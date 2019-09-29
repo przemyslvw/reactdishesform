@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Formik } from "formik";
 import { switchType, addDish } from "../reducers/dishreducer/operations";
 const FormComponent = () => {
-  const dishtype = useSelector(state => state.dishReducer.type);
+  const dishtype = useSelector(state => state.dishReducer.currentType);
   const model = useSelector(state => state.dishReducer.currentModel);
   const dispatch = useDispatch();
 
@@ -20,26 +20,53 @@ const FormComponent = () => {
             errors.name = "name is required";
           } else if (values.name.length < 3) {
             errors.name = "name must have 3 characters";
-          } else if (!values.preparation_time) {
+          }
+
+          if (
+            !values.preparation_time ||
+            values.preparation_time === "00:00:00" ||
+            values.preparation_time.length === 5
+          ) {
             errors.preparation_time = "preparation time is required";
-          } else if (!values.type) {
+          }
+
+          if (!values.type) {
             errors.type = "types is required";
           }
           if (values.type === "pizza") {
             if (!values.no_of_slices) {
               errors.no_of_slices = "number of slices is required";
-            } else if (!values.diameter) {
+            } else if (values.no_of_slices <= 0) {
+              errors.no_of_slices = "number of slices must be higher than zero";
+            } else if (!Number.isInteger(values.no_of_slices)) {
+              errors.no_of_slices = "number of slices must be integer";
+            }
+
+            if (!values.diameter) {
               errors.diameter = "diameter is required";
+            } else if (values.diameter <= 0) {
+              errors.diameter = "diameter must be higher than zero";
             }
           }
           if (values.type === "soup") {
             if (!values.spiciness_scale) {
               errors.spiciness_scale = "spiciness scale is required";
+            } else if (
+              values.spiciness_scale <= 0 ||
+              values.spiciness_scale > 10 ||
+              !Number.isInteger(values.spiciness_scale)
+            ) {
+              errors.spiciness_scale = "the number must be between 1 and 10";
             }
           }
           if (values.type === "sandwich") {
             if (!values.slices_of_bread) {
               errors.slices_of_bread = "slices of bread is required";
+            } else if (values.slices_of_bread <= 0) {
+              errors.slices_of_bread =
+                "slices of bread must be higher than zero";
+            } else if (!Number.isInteger(values.slices_of_bread)) {
+              errors.slices_of_bread = "slices of bread must be integer";
             }
           }
           return errors;
@@ -65,14 +92,17 @@ const FormComponent = () => {
                 value={values.name}
               />
             </label>
-            <h1>Preparation time</h1>
-            <input
-              name="preparation_time"
-              type="time"
-              onChange={handleChange}
-              placeholder="01:30:22"
-              step="1"
-            />
+            <label>
+              <h1>Preparation time</h1>
+              <p>{errors.preparation_time}</p>
+              <input
+                name="preparation_time"
+                type="time"
+                onChange={handleChange}
+                placeholder="01:30:22"
+                step="1"
+              />
+            </label>
             <label>
               <h1>Dish type</h1>
               <p>{errors.type}</p>
@@ -103,6 +133,7 @@ const FormComponent = () => {
                     type="number"
                     onChange={handleChange}
                     placeholder="1"
+                    step="1"
                   />
                 </label>
                 <label>
@@ -129,8 +160,7 @@ const FormComponent = () => {
                   type="number"
                   onChange={handleChange}
                   placeholder="1"
-                  min="1"
-                  max="10"
+                  step="1"
                 />
               </label>
             ) : (
@@ -145,6 +175,7 @@ const FormComponent = () => {
                   type="number"
                   onChange={handleChange}
                   placeholder="1"
+                  step="1"
                 />
               </label>
             ) : (
