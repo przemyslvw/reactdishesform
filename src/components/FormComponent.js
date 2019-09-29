@@ -10,6 +10,7 @@ const FormComponent = () => {
   return (
     <div className="App-form">
       <Formik
+        validateOnChange={false}
         initialValues={model}
         onSubmit={(values, { resetForm }) => {
           addDish(values);
