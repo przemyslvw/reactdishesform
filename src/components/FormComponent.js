@@ -76,7 +76,7 @@ const FormComponent = () => {
           return errors;
         }}
         render={({ values, errors, touched, handleChange, handleSubmit }) => (
-          <Form onSubmit={handleSubmit}>
+          <Form>
             <label>
               <h1>Dish Name</h1>
               {errors.name && touched.name && <p>{errors.name}</p>}
@@ -121,8 +121,7 @@ const FormComponent = () => {
                 <option value="sandwich">sandwich</option>
               </Field>
             </label>
-
-            {dishtype === "pizza" ? (
+            {dishtype === "pizza" && (
               <div>
                 <label>
                   <h1>number of slices</h1>
@@ -151,8 +150,6 @@ const FormComponent = () => {
                   />
                 </label>
               </div>
-            ) : (
-              <div></div>
             )}
             {dishtype === "soup" ? (
               <label>
