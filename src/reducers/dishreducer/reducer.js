@@ -27,9 +27,7 @@ const INITIAL_STATE = {
   currentModel: {
     name: "",
     preparation_time: "",
-    type: "",
-    no_of_slices: "",
-    diameter: ""
+    type: ""
   },
   type: ""
 };
@@ -42,7 +40,10 @@ const dishReducer = (state = INITIAL_STATE, action = {}) => {
         currentModel: state.model.find(model => model.type === action.item),
         type: action.item
       };
-
+    case types.ADD_DISH:
+      return {
+        ...state
+      };
     default:
       return state;
   }

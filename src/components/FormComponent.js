@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik } from "formik";
-import { switchType } from "../reducers/dishreducer/operations";
+import { switchType, addDish } from "../reducers/dishreducer/operations";
 const FormComponent = () => {
   const dishtype = useSelector(state => state.dishReducer.type);
   const model = useSelector(state => state.dishReducer.currentModel);
@@ -12,7 +12,7 @@ const FormComponent = () => {
       <Formik
         initialValues={model}
         onSubmit={values => {
-          console.log(values);
+          addDish(values);
         }}
         render={({
           values,
