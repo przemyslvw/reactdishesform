@@ -165,7 +165,7 @@ const FormComponent = () => {
                 </label>
               </div>
             )}
-            {dishtype === "soup" ? (
+            {dishtype === "soup" && (
               <label>
                 <h1>spiciness scale</h1>
                 {errors.spiciness_scale && touched.spiciness_scale && (
@@ -184,10 +184,8 @@ const FormComponent = () => {
                   }
                 />
               </label>
-            ) : (
-              <div></div>
             )}
-            {dishtype === "sandwich" ? (
+            {dishtype === "sandwich" && (
               <label>
                 <h1>slices of bread</h1>
                 {errors.slices_of_bread && touched.slices_of_bread && (
@@ -206,8 +204,6 @@ const FormComponent = () => {
                   }
                 />
               </label>
-            ) : (
-              <div></div>
             )}
             <button className="btn btn-primary" type="submit">
               Add dish
