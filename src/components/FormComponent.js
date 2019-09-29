@@ -85,6 +85,7 @@ const FormComponent = () => {
                 onChange={handleChange}
                 placeholder="Pizza HexOcean ... "
                 value={values.name}
+                className={errors.name && touched.name && "is-invalid"}
               />
             </label>
             <label>
@@ -98,12 +99,17 @@ const FormComponent = () => {
                 onChange={handleChange}
                 value={values.preparation_time}
                 placeholder="01:30:22"
-                step="1"
+                step="2"
+                pattern="[0-9]{2}:[0-9]{2}:[0-9]{2}"
+                className={
+                  errors.preparation_time &&
+                  touched.preparation_time &&
+                  "is-invalid"
+                }
               />
             </label>
             <label>
               <h1>Dish type</h1>
-              {errors.type && touched.type && <p>{errors.type}</p>}
               <Field
                 component="select"
                 name="type"
@@ -134,6 +140,11 @@ const FormComponent = () => {
                     onChange={handleChange}
                     placeholder="1"
                     step="1"
+                    className={
+                      errors.no_of_slices &&
+                      touched.no_of_slices &&
+                      "is-invalid"
+                    }
                   />
                 </label>
                 <label>
@@ -147,6 +158,9 @@ const FormComponent = () => {
                     step="0.01"
                     onChange={handleChange}
                     placeholder="1"
+                    className={
+                      errors.diameter && touched.diameter && "is-invalid"
+                    }
                   />
                 </label>
               </div>
@@ -163,6 +177,11 @@ const FormComponent = () => {
                   onChange={handleChange}
                   placeholder="1"
                   step="1"
+                  className={
+                    errors.spiciness_scale &&
+                    touched.spiciness_scale &&
+                    "is-invalid"
+                  }
                 />
               </label>
             ) : (
@@ -180,6 +199,11 @@ const FormComponent = () => {
                   onChange={handleChange}
                   placeholder="1"
                   step="1"
+                  className={
+                    errors.slices_of_bread &&
+                    touched.slices_of_bread &&
+                    "is-invalid"
+                  }
                 />
               </label>
             ) : (
