@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Formik } from "formik";
+import { Formik, Form, Field } from "formik";
 import { switchType, addDish } from "../reducers/dishreducer/operations";
 const FormComponent = () => {
   const dishtype = useSelector(state => state.dishReducer.currentType);
@@ -11,6 +11,7 @@ const FormComponent = () => {
     <div className="App-form">
       <Formik
         validateOnChange={false}
+        validateOnBlur={true}
         initialValues={model}
         onSubmit={(values, { resetForm }) => {
           addDish(values);
@@ -74,12 +75,12 @@ const FormComponent = () => {
           }
           return errors;
         }}
-        render={({ values, errors, handleChange, handleSubmit }) => (
-          <form onSubmit={handleSubmit}>
+        render={({ values, errors, touched, handleChange, handleSubmit }) => (
+          <Form onSubmit={handleSubmit}>
             <label>
               <h1>Dish Name</h1>
-              {errors.name && <p>{errors.name}</p>}
-              <input
+              {errors.name && touched.name && <p>{errors.name}</p>}
+              <Field
                 name="name"
                 onChange={handleChange}
                 placeholder="Pizza HexOcean ... "
@@ -88,8 +89,10 @@ const FormComponent = () => {
             </label>
             <label>
               <h1>Preparation time</h1>
-              {errors.preparation_time && <p>{errors.preparation_time}</p>}
-              <input
+              {errors.preparation_time && touched.preparation_time && (
+                <p>{errors.preparation_time}</p>
+              )}
+              <Field
                 name="preparation_time"
                 type="time"
                 onChange={handleChange}
@@ -100,9 +103,9 @@ const FormComponent = () => {
             </label>
             <label>
               <h1>Dish type</h1>
-              {errors.type && <p>{errors.type}</p>}
-
-              <select
+              {errors.type && touched.type && <p>{errors.type}</p>}
+              <Field
+                component="select"
                 name="type"
                 value={values.type}
                 onChange={e => {
@@ -116,15 +119,17 @@ const FormComponent = () => {
                 <option value="pizza">pizza</option>
                 <option value="soup">soup</option>
                 <option value="sandwich">sandwich</option>
-              </select>
+              </Field>
             </label>
 
             {dishtype === "pizza" ? (
               <div>
                 <label>
                   <h1>number of slices</h1>
-                  {errors.no_of_slices && <p>{errors.no_of_slices}</p>}
-                  <input
+                  {errors.no_of_slices && touched.no_of_slices && (
+                    <p>{errors.no_of_slices}</p>
+                  )}
+                  <Field
                     name="no_of_slices"
                     type="number"
                     onChange={handleChange}
@@ -134,8 +139,10 @@ const FormComponent = () => {
                 </label>
                 <label>
                   <h1>diameter</h1>
-                  {errors.diameter && <p>{errors.diameter}</p>}
-                  <input
+                  {errors.diameter && touched.diameter && (
+                    <p>{errors.diameter}</p>
+                  )}
+                  <Field
                     name="diameter"
                     type="number"
                     step="0.01"
@@ -150,8 +157,10 @@ const FormComponent = () => {
             {dishtype === "soup" ? (
               <label>
                 <h1>spiciness scale</h1>
-                {errors.spiciness_scale && <p>{errors.spiciness_scale}</p>}
-                <input
+                {errors.spiciness_scale && touched.spiciness_scale && (
+                  <p>{errors.spiciness_scale}</p>
+                )}
+                <Field
                   name="spiciness_scale"
                   type="number"
                   onChange={handleChange}
@@ -165,8 +174,10 @@ const FormComponent = () => {
             {dishtype === "sandwich" ? (
               <label>
                 <h1>slices of bread</h1>
-                {errors.slices_of_bread && <p>{errors.slices_of_bread}</p>}
-                <input
+                {errors.slices_of_bread && touched.slices_of_bread && (
+                  <p>{errors.slices_of_bread}</p>
+                )}
+                <Field
                   name="slices_of_bread"
                   type="number"
                   onChange={handleChange}
@@ -180,7 +191,7 @@ const FormComponent = () => {
             <button className="btn btn-primary" type="submit">
               Add dish
             </button>
-          </form>
+          </Form>
         )}
       />
     </div>
