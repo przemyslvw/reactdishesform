@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Formik, Form, Field } from "formik";
+import { Formik } from "formik";
 import { switchType, addDish } from "../reducers/dishreducer/operations";
 const FormComponent = () => {
   const dishtype = useSelector(state => state.dishReducer.currentType);
@@ -11,11 +11,11 @@ const FormComponent = () => {
     <div className="App-form">
       <Formik
         validateOnChange={false}
-        validateOnBlur={true}
+        validateOnBlur={false}
         initialValues={model}
         onSubmit={(values, { resetForm }) => {
           addDish(values);
-          alert("Dish " + values.name + " has been added");
+          alert("Dish " + values.name + " has been added.");
           dispatch(switchType(""));
           resetForm();
         }}
@@ -28,7 +28,6 @@ const FormComponent = () => {
           }
           if (
             !values.preparation_time ||
-            values.preparation_time === "00:00:00" ||
             values.preparation_time.length === 5
           ) {
             errors.preparation_time = "preparation time is required";
@@ -75,49 +74,42 @@ const FormComponent = () => {
           }
           return errors;
         }}
-        render={({ values, errors, touched, handleChange, handleSubmit }) => (
-          <Form>
+        render={({ values, errors, handleChange, handleSubmit }) => (
+          <form onSubmit={handleSubmit}>
             <label>
               <h1>Dish name</h1>
-              {errors.name && touched.name && <p>{errors.name}</p>}
-              <Field
+              {errors.name && <p>{errors.name}</p>}
+              <input
                 name="name"
                 onChange={handleChange}
                 placeholder="Pizza HexOcean ... "
                 value={values.name}
-                className={errors.name && touched.name && "is-invalid"}
+                className={errors.name && "is-invalid"}
               />
             </label>
             <label>
               <h1>Preparation time</h1>
-              {errors.preparation_time && touched.preparation_time && (
-                <p>{errors.preparation_time}</p>
-              )}
-              <Field
+              {errors.preparation_time && <p>{errors.preparation_time}</p>}
+              <input
                 name="preparation_time"
                 type="time"
                 onChange={handleChange}
                 value={values.preparation_time}
                 placeholder="01:30:22"
                 step="2"
-                pattern="[0-9]{2}:[0-9]{2}:[0-9]{2}"
-                className={
-                  errors.preparation_time &&
-                  touched.preparation_time &&
-                  "is-invalid"
-                }
+                className={errors.preparation_time && "is-invalid"}
               />
             </label>
             <label>
               <h1>Dish type</h1>
-              <Field
-                component="select"
+              <select
                 name="type"
                 value={values.type}
                 onChange={e => {
                   dispatch(switchType(e.target.value));
                   handleChange(e);
                 }}
+                className={errors.type && "is-invalid"}
               >
                 <option disabled value="">
                   choose one ...
@@ -125,42 +117,30 @@ const FormComponent = () => {
                 <option value="pizza">pizza</option>
                 <option value="soup">soup</option>
                 <option value="sandwich">sandwich</option>
-              </Field>
+              </select>
             </label>
             {dishtype === "pizza" && (
               <div>
                 <label>
                   <h1>Number of slices</h1>
-                  {errors.no_of_slices && touched.no_of_slices && (
-                    <p>{errors.no_of_slices}</p>
-                  )}
-                  <Field
+                  {errors.no_of_slices && <p>{errors.no_of_slices}</p>}
+                  <input
                     name="no_of_slices"
                     type="number"
                     onChange={handleChange}
-                    placeholder="0"
                     step="1"
-                    className={
-                      errors.no_of_slices &&
-                      touched.no_of_slices &&
-                      "is-invalid"
-                    }
+                    className={errors.no_of_slices && "is-invalid"}
                   />
                 </label>
                 <label>
                   <h1>Diameter</h1>
-                  {errors.diameter && touched.diameter && (
-                    <p>{errors.diameter}</p>
-                  )}
-                  <Field
+                  {errors.diameter && <p>{errors.diameter}</p>}
+                  <input
                     name="diameter"
                     type="number"
                     step="0.01"
                     onChange={handleChange}
-                    placeholder="0"
-                    className={
-                      errors.diameter && touched.diameter && "is-invalid"
-                    }
+                    className={errors.diameter && "is-invalid"}
                   />
                 </label>
               </div>
@@ -168,47 +148,33 @@ const FormComponent = () => {
             {dishtype === "soup" && (
               <label>
                 <h1>Spiciness scale</h1>
-                {errors.spiciness_scale && touched.spiciness_scale && (
-                  <p>{errors.spiciness_scale}</p>
-                )}
-                <Field
+                {errors.spiciness_scale && <p>{errors.spiciness_scale}</p>}
+                <input
                   name="spiciness_scale"
                   type="number"
                   onChange={handleChange}
-                  placeholder="0"
                   step="1"
-                  className={
-                    errors.spiciness_scale &&
-                    touched.spiciness_scale &&
-                    "is-invalid"
-                  }
+                  className={errors.spiciness_scale && "is-invalid"}
                 />
               </label>
             )}
             {dishtype === "sandwich" && (
               <label>
                 <h1>Slices of bread</h1>
-                {errors.slices_of_bread && touched.slices_of_bread && (
-                  <p>{errors.slices_of_bread}</p>
-                )}
-                <Field
+                {errors.slices_of_bread && <p>{errors.slices_of_bread}</p>}
+                <input
                   name="slices_of_bread"
                   type="number"
                   onChange={handleChange}
-                  placeholder="0"
                   step="1"
-                  className={
-                    errors.slices_of_bread &&
-                    touched.slices_of_bread &&
-                    "is-invalid"
-                  }
+                  className={errors.slices_of_bread && "is-invalid"}
                 />
               </label>
             )}
             <button className="btn btn-primary" type="submit">
               Add dish
             </button>
-          </Form>
+          </form>
         )}
       />
     </div>
