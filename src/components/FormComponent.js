@@ -15,7 +15,7 @@ const FormComponent = () => {
         initialValues={model}
         onSubmit={(values, { resetForm }) => {
           addDish(values);
-          alert("Dish " + values.name + "has been added");
+          alert("Dish " + values.name + " has been added");
           dispatch(switchType(""));
           resetForm();
         }}
@@ -78,7 +78,7 @@ const FormComponent = () => {
         render={({ values, errors, touched, handleChange, handleSubmit }) => (
           <Form>
             <label>
-              <h1>Dish Name</h1>
+              <h1>Dish name</h1>
               {errors.name && touched.name && <p>{errors.name}</p>}
               <Field
                 name="name"
@@ -130,7 +130,7 @@ const FormComponent = () => {
             {dishtype === "pizza" && (
               <div>
                 <label>
-                  <h1>number of slices</h1>
+                  <h1>Number of slices</h1>
                   {errors.no_of_slices && touched.no_of_slices && (
                     <p>{errors.no_of_slices}</p>
                   )}
@@ -138,7 +138,7 @@ const FormComponent = () => {
                     name="no_of_slices"
                     type="number"
                     onChange={handleChange}
-                    placeholder="1"
+                    placeholder="0"
                     step="1"
                     className={
                       errors.no_of_slices &&
@@ -148,7 +148,7 @@ const FormComponent = () => {
                   />
                 </label>
                 <label>
-                  <h1>diameter</h1>
+                  <h1>Diameter</h1>
                   {errors.diameter && touched.diameter && (
                     <p>{errors.diameter}</p>
                   )}
@@ -157,7 +157,7 @@ const FormComponent = () => {
                     type="number"
                     step="0.01"
                     onChange={handleChange}
-                    placeholder="1"
+                    placeholder="0"
                     className={
                       errors.diameter && touched.diameter && "is-invalid"
                     }
@@ -167,7 +167,7 @@ const FormComponent = () => {
             )}
             {dishtype === "soup" && (
               <label>
-                <h1>spiciness scale</h1>
+                <h1>Spiciness scale</h1>
                 {errors.spiciness_scale && touched.spiciness_scale && (
                   <p>{errors.spiciness_scale}</p>
                 )}
@@ -175,7 +175,7 @@ const FormComponent = () => {
                   name="spiciness_scale"
                   type="number"
                   onChange={handleChange}
-                  placeholder="1"
+                  placeholder="0"
                   step="1"
                   className={
                     errors.spiciness_scale &&
@@ -187,7 +187,7 @@ const FormComponent = () => {
             )}
             {dishtype === "sandwich" && (
               <label>
-                <h1>slices of bread</h1>
+                <h1>Slices of bread</h1>
                 {errors.slices_of_bread && touched.slices_of_bread && (
                   <p>{errors.slices_of_bread}</p>
                 )}
@@ -195,7 +195,7 @@ const FormComponent = () => {
                   name="slices_of_bread"
                   type="number"
                   onChange={handleChange}
-                  placeholder="1"
+                  placeholder="0"
                   step="1"
                   className={
                     errors.slices_of_bread &&
