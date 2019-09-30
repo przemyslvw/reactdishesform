@@ -34,7 +34,7 @@ const FormComponent = () => {
             errors.preparation_time = "preparation time is required";
           }
           if (!values.type) {
-            errors.type = "types is required";
+            errors.type = "type is required";
           }
           if (values.type === "pizza") {
             if (!values.no_of_slices) {
@@ -65,7 +65,7 @@ const FormComponent = () => {
           }
           if (values.type === "sandwich") {
             if (!values.slices_of_bread) {
-              errors.slices_of_bread = "slices of bread is required";
+              errors.slices_of_bread = "slices of bread are required";
             } else if (values.slices_of_bread <= 0) {
               errors.slices_of_bread =
                 "slices of bread must be higher than zero";
